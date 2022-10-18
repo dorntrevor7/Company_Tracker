@@ -21,9 +21,13 @@ This will allow you to create the company of your dreams. Allowing you to input 
 
 `npm i`
 
+## Start Command:
+
+`npm start`
+
 ## Tests:
 
-`npm run`
+`npm test`
 
 ## Usage:
 
