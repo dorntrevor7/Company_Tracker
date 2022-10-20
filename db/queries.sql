@@ -1,10 +1,9 @@
 SELECT *
-FROM course_names;
+FROM departmentTable;
 
-SELECT department, COUNT(id) AS number_courses
-FROM course_names
-GROUP BY department;
+SELECT *
+FROM roleTable;
 
-SELECT department, SUM(total_enrolled) AS sum_enrolled
-FROM course_names
-GROUP BY department;
+SELECT *
+FROM employeeTable;
+

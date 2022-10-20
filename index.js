@@ -1,36 +1,6 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
-
-// This function is for adding a new employee
-function newEmployee() {
-  inquirer
-    .prompt([
-      {
-        type: "input",
-        name: "name",
-        message: "What is the employees name?",
-      },
-      {
-        type: "checkbox",
-        message: "What languages do you know?",
-        name: "stack",
-        choices: ["HTML", "CSS", "JavaScript", "MySQL"],
-      },
-      {
-        type: "list",
-        message: "What is your preferred method of communication?",
-        name: "contact",
-        choices: ["email", "phone", "telekinesis"],
-      },
-    ])
-    .then((data) => {
-      const filename = `${data.name.toLowerCase().split(" ").join("")}.json`;
-
-      fs.writeFile(filename, JSON.stringify(data, null, "\t"), (err) =>
-        err ? console.log(err) : console.log("Success!")
-      );
-    });
-}
+const { allowedNodeEnvironmentFlags } = require("process");
 
 function opener() {
   inquirer
@@ -47,6 +17,7 @@ function opener() {
           "Add Departments",
           "Quit",
           "View All Employees",
+          "Add Employee",
         ],
       },
     ])
@@ -54,52 +25,101 @@ function opener() {
       console.table(data.openerQuestion);
       switch (data.openerQuestion) {
         case "Update Employee Row":
-          function updateEmployeeRow() {
-            inquirer
-              .prompt([
-                {
-                  type: "list",
-                  message: "What would you like to do?",
-                  name: "openerQuestion",
-                  choices: [
-                    "Update Employee Row",
-                    "View All Roles",
-                    "Add Role",
-                    "View All Departments",
-                    "Add Departments",
-                    "Quit",
-                    "View All Employees",
-                  ],
-                },
-              ])
-              .then((data) => {
-                console.table(data.openerQuestion);
-              });
-          }
-          console.log("function updateEmployeeRow");
           break;
         case "View All Roles":
           console.log("function viewAllRoles");
           break;
+        case "Add Role":
+          addRole();
+          break;
         case "View All Departments":
-          console.log("function addRole");
+          console.log("function viewAllDepartments");
           break;
         case "Add Departments":
-          console.log("function addDepartments");
-          break;
-        case "Quit":
-          console.log("function quit");
+          addDepartments();
           break;
         case "View All Employees":
-          console.log("function viewAllEmployees");
+          console.log("function viewAllEmployee");
+          break;
+        case "Add Employee":
+          addEmployee();
+          break;
+        case "Quit":
+          console.log("Applications Been Collected");
           break;
       }
-      // const filename = `${data.name.toLowerCase().split(" ").join("")}.json`;
-
-      // fs.writeFile(filename, JSON.stringify(data, null, "\t"), (err) =>
-      //   err ? console.log(err) : console.log("Success!")
-      // );
     });
 }
 
 opener();
+
+function addDepartments() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "What's the department name?",
+        name: "departmentName",
+      },
+      {
+        type: "input",
+        message: "What's the department Id?",
+        name: "departmentId",
+      },
+    ])
+    .then((data) => {
+      console.log(data.departmentName, data.departmentId);
+    });
+}
+
+function addEmployee() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "What's the employee's first name?",
+        name: "firstName",
+      },
+      {
+        type: "input",
+        message: "What's the employee's last name?",
+        name: "lastName",
+      },
+      {
+        type: "list",
+        message: "What's the employee's role?",
+        name: "employeeRole",
+        choices: [
+          "Accountant",
+          "Lawyer",
+          "Customer Service",
+          "Sales Lead",
+          "Sales Person",
+          "Lead Engineer",
+        ],
+      },
+    ])
+    .then((data) => {
+      console.table(data);
+      switch (data.employeeRole) {
+        case "Accountant":
+          console.log("function accountant");
+          break;
+        case "Lawyer":
+          console.log("function lawyer");
+          break;
+        case "Customer Service":
+          console.log("function customerService");
+          break;
+        case "Sales Lead":
+          console.log("function salesLead");
+          break;
+        case "Sales Person":
+          console.log("function salesPerson");
+          break;
+        case "Lead Engineer":
+          console.log("function engineer");
+          break;
+      }
+    });
+}

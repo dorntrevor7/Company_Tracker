@@ -3,22 +3,31 @@ CREATE DATABASE employees_db;
 
 USE employees_db;
 
-CREATE TABLE department (
-  id INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE departmentTable (
+  id INT NOT NULL,
   name VARCHAR(30) NOT NULL,
   PRIMARY KEY(id)
-)
-CREATE TABLE role (
-  id INT NOT NULL AUTO_INCREMENT,
+);
+
+CREATE TABLE roleTable (
+  id INT NOT NULL,
   title VARCHAR(30) NOT NULL,
-  salary DECIMAL(2) NOT NULL,
+  salary DECIMAL NOT NULL,
   department_id INT,
-  total_enrolled INT
-)
-CREATE TABLE employee (
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  FOREIGN KEY (department_id)
+  REFERENCES departmentTable(id)
+  ON DELETE SET NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE employeeTable (
+  id INT NOT NULL,
   first_name VARCHAR(30) NOT NULL,
   last_name VARCHAR(30) NOT NULL,
   role_id INT,
-  manager_id INT
-)
+  manager_id INT,
+  FOREIGN KEY (role_id)
+  REFERENCES roleTable(id)
+  ON DELETE SET NULL,
+  PRIMARY KEY (id)
+);
